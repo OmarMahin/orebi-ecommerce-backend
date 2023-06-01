@@ -64,7 +64,6 @@ let registrationController = async (req, res) => {
                 success: "Registration Complete",
             })
         });
-        //return res.send({success:"Registration Complete"})
     }
 
 }
