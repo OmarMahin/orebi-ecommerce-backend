@@ -1,3 +1,5 @@
+const Product = require('../models/productModel.js')
+const Varient = require('../models/productVarientModel.js')
 const User = require('../models/usersModel.js')
 
 let secureProductUpload = async (req, res, nextStep)=>{
@@ -36,7 +38,48 @@ let secureProductUpload = async (req, res, nextStep)=>{
 }
 
 let createProduct = async (req, res)=>{
-    console.log("Create Product")
+    let {name, description, image, store} = req.body
+
+    let product = new Product({
+        name,
+        description, 
+        image, 
+        store
+    })
+
+    product.save()
+
+    res.send({success: "Product created successfully"})
 }
 
-module.exports = {secureProductUpload, createProduct}
+
+let createVarient = async(req, res)=>{
+
+    let {name, image, price, quatity, varientsOf} = req.body
+
+    let duplicateVarient = await Varient.findOne({name: name})
+
+    if (duplicateVarient){
+        return res.send({error: "This varient already exists."})
+    }
+
+    let varient = new Varient({
+        name, 
+        image, 
+        price, 
+        quatity, 
+        varientsOf
+    })
+
+    varient.save()
+
+    let updateProduct = await Product.findOneAndUpdate(
+        {_id: varient.varientsOf}, 
+        {$push:{varients: varient._id}},
+        {new:true})
+
+    res.send({success: "Varient created successfully"})
+
+}
+
+module.exports = {secureProductUpload, createProduct, createVarient}

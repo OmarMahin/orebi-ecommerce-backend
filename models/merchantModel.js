@@ -36,4 +36,4 @@ const storeSchema = new Schema({
 })
 
 
-module.exports = mongoose.model("store", storeSchema)
+module.exports = mongoose.model("Store", storeSchema)
