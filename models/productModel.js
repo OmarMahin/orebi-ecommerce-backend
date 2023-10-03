@@ -14,10 +14,6 @@ const productSchema = new Schema({
         require: true,
     },
 
-    image: {
-        type: String,
-        require: true,
-    },
 
     store:{
         type: Schema.Types.ObjectId,

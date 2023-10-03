@@ -2,6 +2,8 @@ const Product = require('../models/productModel.js')
 const Varient = require('../models/productVarientModel.js')
 const User = require('../models/usersModel.js')
 
+
+
 let secureProductUpload = async (req, res, nextStep)=>{
 
     if (!req.headers.authorization){
@@ -55,17 +57,15 @@ let createProduct = async (req, res)=>{
 
 let createVarient = async(req, res)=>{
 
-    let {name, image, price, quatity, varientsOf} = req.body
+    let { name, image, color, size, storage, ram, price, quatity, varientsOf} = req.body
 
-    let duplicateVarient = await Varient.findOne({name: name})
-
-    if (duplicateVarient){
-        return res.send({error: "This varient already exists."})
-    }
 
     let varient = new Varient({
-        name, 
-        image, 
+        image: `${process.env.IMAGE_PATH}/productImageUploads/${req.file.filename}`, 
+        color, 
+        size, 
+        storage, 
+        ram, 
         price, 
         quatity, 
         varientsOf

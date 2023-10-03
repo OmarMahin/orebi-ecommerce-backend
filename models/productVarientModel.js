@@ -4,14 +4,25 @@ const { Schema } = mongoose
 
 const productVarientSchema = new Schema({
 
-    name: {
+
+    color: {
         type: String,
-        require: true,
     },
 
     image: {
         type: String,
-        require: true,
+    },
+
+    size: {
+        type: String,
+    },
+
+    storage: {
+        type: String,
+    },
+
+    ram: {
+        type: String,
     },
 
     price: {
@@ -27,14 +38,9 @@ const productVarientSchema = new Schema({
     varientsOf: {
         type: Schema.Types.ObjectId,
         ref: "Product",
+        require: true,      
     },
 
-    options: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "ProductVarientOptions",
-        }
-    ],
 
     updated: {
         type: Date,

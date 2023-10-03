@@ -4,6 +4,7 @@ const dbConnection = require("./config/dbConnection.js")
 const cors = require("cors")
 const routes = require("./routes")
 const app = express()
+const path = require('path')
 
 
 app.use(express.urlencoded({extended: true}))
@@ -13,6 +14,8 @@ app.use(express.json())
 dbConnection()
 
 app.use(routes)
+
+app.use('/productImageUploads', express.static(path.join(__dirname, 'productImageUploads')))
 
 app.get('/', function (req, res) {
   res.send('Hello World')
